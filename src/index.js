@@ -14,6 +14,20 @@ import axios from 'axios';
 // WATCHER SAGA
 function* watcherSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
+    yield takeEvery('FETCH_GENRES', fetch);
+    yield takeEvery('FETCH_MOVIE_DETAILS', fetchMovieDetails);
+}
+
+// FETCH MOVIE DETAILS -> get movie details in movie.router.js
+function* fetchMovieDetails (action) {
+    try{
+        console.log('the action.payload id:', action.payload);
+        const movie = yield axios.get(`/api/movie/${action.payload}`);
+        yield put({type: 'SET_DETAILS', payload: movie.data});
+
+    }catch(e){
+        console.log(e);
+    }
 }
 
 // FETCH ALL MOVIES
@@ -63,6 +77,8 @@ const genres = (state = [], action) => {
             return state;
     }
 }
+
+
 
 // Create one store that all components can use
 const storeInstance = createStore(

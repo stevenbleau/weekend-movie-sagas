@@ -2,12 +2,29 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool')
 
+// GET ALL MOVIES
 router.get('/', (req, res) => {
 
   const query = `SELECT * FROM movies ORDER BY "title" ASC`;
   pool.query(query)
     .then( result => {
       res.send(result.rows);
+    })
+    .catch(err => {
+      console.log('ERROR: Get all movies', err);
+      res.sendStatus(500)
+    })
+
+});
+
+// GET MOVIE DETAILS -> send back to fetchMovieDetails in index.js
+router.get('/:id', (req, res) => {
+
+  const query = `SELECT * FROM movies WHERE "id"=$1`;
+  pool.query(query, [req.params.id])
+    .then( result => {
+      //returns the first item in the array (which is an object)
+      res.send(result.rows[0]);
     })
     .catch(err => {
       console.log('ERROR: Get all movies', err);

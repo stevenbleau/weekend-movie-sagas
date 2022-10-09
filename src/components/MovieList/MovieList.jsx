@@ -15,14 +15,9 @@ function MovieList() {
     }, []);
 
     
-    const getDetails = (movie) => {
-        console.log('in getDetails movie.id is:', movie.id);
-        dispatch({ 
-            type: 'SET_DETAILS', 
-            payload: movie,
-        });
-
-        history.push(`/details/${movie.id}`);
+    const getDetails = (movieToDisplay) => {
+        console.log('in getDetails movie.id is:', movieToDisplay.id);
+        history.push(`/details/${movieToDisplay.id}`);
     }
 
     return (

@@ -6,16 +6,17 @@ import Details from'../Details/Details';
 function App() {
   return (
     <div className="App">
-      <h1>The Movies Saga!</h1>
 
-      <Router>        
+      <Router>  
+      <h1>The Movies Saga!</h1>
+      
         <Route path="/" exact>
           <MovieList />
         </Route>
         
         {/* Details page */}
        <Route exact path="/details/:id">
-          <Details />
+          <Details/>
        </Route>
 
 
